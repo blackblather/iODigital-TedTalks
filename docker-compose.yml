@@ -1,0 +1,18 @@
+name: tedtalks
+
+services:
+  backend:
+    build: .
+    restart: always
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:12.22
+    restart: always
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: admin123
+
+volumes:
+  db-data:
