@@ -49,8 +49,8 @@ public class TalksController {
     @GetMapping("/get")
     public ResponseEntity<TalkDto> getById(@RequestParam Integer id) {
         return ResponseEntity.ok(
-                talksMapper.talkToTalkDto(
-                        talksService.getById(id)
+                talksMapper.talkToDto(
+                        talksService.getByIdOrThrow(id)
                 )
         );
     }
@@ -58,6 +58,16 @@ public class TalksController {
     @DeleteMapping("/delete")
     public ResponseEntity<Void> deleteTalk(@RequestParam Integer id) {
         talksService.removeById(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<Void> updateTalkDetailsById(@RequestParam Integer id,
+                                                      @RequestBody TalkDto talksDto) {
+        talksService.updateById(
+                id,
+                talksMapper.dtoToTalk(talksDto)
+        );
         return ResponseEntity.ok().build();
     }
 }

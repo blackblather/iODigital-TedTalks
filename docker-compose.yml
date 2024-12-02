@@ -1,11 +1,11 @@
 name: tedtalks
 
 services:
-  backend:
-    build: .
-    restart: always
-    depends_on:
-      - postgres
+#  backend:
+#    build: .
+#    restart: always
+#    depends_on:
+#      - postgres
   postgres:
     image: postgres:12.22
     restart: always

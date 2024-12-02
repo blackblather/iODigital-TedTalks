@@ -7,14 +7,13 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 public class TedTalksService {
     // Repositories
     private TalksRepository talksRepository;
 
-    TedTalksService(TalksRepository talksRepository) {
+    TedTalksService(TalksRepository talksRepository, AuthorService authorService) {
         this.talksRepository = talksRepository;
     }
 
@@ -33,13 +32,28 @@ public class TedTalksService {
         return new TalksListWrapper(talks, totalTalks);
     }
 
-    public Talks getById(int id) {
+    public Talks getByIdOrThrow(int id) {
         return talksRepository.findById(id)
                 .orElseThrow(EntityNotFoundException::new);
     }
 
     public void removeById(int id) {
-        Talks talk = getById(id);
+        Talks talk = getByIdOrThrow(id);
         talksRepository.delete(talk);
+    }
+
+    public void updateById(Integer id, Talks updatedTalk) {
+        // Get requested talk if it exists (404 otherwise)
+        Talks persistedTalk = getByIdOrThrow(id);
+
+        // Update fetched talk
+        persistedTalk.title = updatedTalk.title;
+        persistedTalk.views = updatedTalk.views;
+        persistedTalk.likes = updatedTalk.likes;
+        persistedTalk.url = updatedTalk.url;
+        persistedTalk.year = updatedTalk.year;
+
+        // Update DB record
+        talksRepository.save(persistedTalk);
     }
 }
