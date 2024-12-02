@@ -51,12 +51,14 @@ public abstract class TalksMapper {
     @Mapping(target = "name", source = "name")
     public abstract Author authorToAuthorDto(AuthorDto author);
 
-    //@Mapping(target = "author", source = "author")
-    @Mapping(target = "title", source = "title")
-    @Mapping(target = "views", source = "views")
-    @Mapping(target = "likes", source = "likes")
-    @Mapping(target = "url", source = "url")
-    //@Mapping(target = "influenceFactor", source = "influenceFactor") Not updatable
-    @Mapping(target = "year", source = "year")
-    public abstract Talks dtoToTalk(TalkDto dto);
+    public Talks dtoToTalk(TalkDto dto) {
+        return new Talks(
+                authorToAuthorDto(dto.author),
+                dto.title,
+                dto.views,
+                dto.likes,
+                dto.url,
+                dto.year
+        );
+    }
 }

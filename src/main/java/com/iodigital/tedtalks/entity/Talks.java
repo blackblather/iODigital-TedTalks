@@ -49,8 +49,8 @@ public class Talks {
         this.views = views;
         this.likes = likes;
         this.url = Objects.requireNonNull(url);
-        this.influenceFactor = views * likes; // Calculate influence
         this.year = year;
+        calculateInfluenceFactor();
 
         // Validations
         if (views < 0) {
@@ -62,5 +62,9 @@ public class Talks {
         if (year < 0) {
             throw new IllegalArgumentException("Year must be positive");
         }
+    }
+
+    public void calculateInfluenceFactor() {
+        this.influenceFactor = (int) ((views * 0.5) + (likes * 0.5));
     }
 }
