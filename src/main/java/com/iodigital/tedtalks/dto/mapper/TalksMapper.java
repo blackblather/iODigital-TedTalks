@@ -1,7 +1,9 @@
 package com.iodigital.tedtalks.dto.mapper;
 
+import com.iodigital.tedtalks.dto.AuthorDto;
 import com.iodigital.tedtalks.dto.GetTalksResponseDto;
 import com.iodigital.tedtalks.dto.TalkDto;
+import com.iodigital.tedtalks.entity.Author;
 import com.iodigital.tedtalks.entity.Talks;
 import com.iodigital.tedtalks.entity.wrapper.TalksListWrapper;
 import org.mapstruct.InjectionStrategy;
@@ -15,6 +17,10 @@ import java.util.List;
         injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public abstract class TalksMapper {
 
+    @Mapping(target = "name", source = "name")
+    public abstract AuthorDto authorToAuthorDto(Author author);
+
+    @Mapping(target = "author", source = "author")
     @Mapping(target = "title", source = "title")
     @Mapping(target = "views", source = "views")
     @Mapping(target = "likes", source = "likes")
