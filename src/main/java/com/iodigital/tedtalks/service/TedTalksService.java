@@ -3,9 +3,11 @@ package com.iodigital.tedtalks.service;
 import com.iodigital.tedtalks.entity.Talks;
 import com.iodigital.tedtalks.entity.wrapper.TalksListWrapper;
 import com.iodigital.tedtalks.repository.TalksRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class TedTalksService {
@@ -29,5 +31,10 @@ public class TedTalksService {
         long totalTalks = talksRepository.count();
 
         return new TalksListWrapper(talks, totalTalks);
+    }
+
+    public Talks getById(int id) {
+        return talksRepository.findById(id)
+                .orElseThrow(EntityNotFoundException::new);
     }
 }
