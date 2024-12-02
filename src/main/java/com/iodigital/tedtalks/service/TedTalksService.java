@@ -1,6 +1,7 @@
 package com.iodigital.tedtalks.service;
 
 import com.iodigital.tedtalks.entity.Author;
+import com.iodigital.tedtalks.entity.Talks;
 import com.iodigital.tedtalks.repository.TalksRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +14,12 @@ public class TedTalksService {
         this.talksRepository = talksRepository;
     }
 
-    public void testSave() {
-        Author author = new Author();
-        author.name = "example author";
-
-        talksRepository.save(author);
+    public boolean save(Talks talk, Author author) {
+        try {
+            talksRepository.save(talk);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

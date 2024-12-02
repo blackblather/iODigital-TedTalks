@@ -8,10 +8,22 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Table(name = "authors")
 public class Author {
     @Id
-    @GeneratedValue(strategy=IDENTITY)
     @Column(name = "id")
     public Integer id;
 
     @Column(name = "name")
     public String name;
+
+    public Author() { /* Empty constructor required by Hibernate */ }
+
+    public Author(String name) {
+        // Validations
+        if (name == null) {
+            throw new NullPointerException("Author name must not be null");
+        }
+
+        // Assignments
+        this.id = name.hashCode();  // Generate ID from name
+        this.name = name;
+    }
 }
