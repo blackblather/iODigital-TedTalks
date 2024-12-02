@@ -87,11 +87,15 @@ ALTER SEQUENCE public.authors_id_seq OWNED BY public.authors.id;
 CREATE TABLE public.talks (
                               id integer NOT NULL,
                               author_id integer NOT NULL,
-                              title character varying NOT NULL,
+                              title character varying NOT NULL
+                                  constraint talks_pk_2
+                                      unique,
                               views integer NOT NULL,
                               likes integer NOT NULL,
-                              url character varying NOT NULL,
-                              infuence_factor integer NOT NULL,
+                              url character varying NOT NULL
+                                  constraint talks_pk_3
+                                      unique,
+                              influence_factor integer NOT NULL,
                               date date NOT NULL
 );
 
