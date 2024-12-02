@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 
@@ -19,6 +22,7 @@ public class ScraperService {
     private TedTalksService tedTalksService;
 
     private CSVReaderHeaderAware reader;
+    private DateTimeFormatter formatter;
 
     public ScraperService(AuthorService authorService,
                           TedTalksService tedTalksService) throws IOException {
@@ -28,6 +32,9 @@ public class ScraperService {
         // Open CSV file
         InputStreamReader stream = new InputStreamReader(Thread.currentThread().getContextClassLoader().getResourceAsStream("data.csv"));
         reader = new CSVReaderHeaderAware(stream);
+
+        // Config date formater
+        this.formatter = DateTimeFormatter.ofPattern("MMMM yyyy", Locale.ENGLISH);
     }
 
     public int refresh() {
@@ -51,7 +58,7 @@ public class ScraperService {
                         Integer.valueOf(values.get("views")),
                         Integer.valueOf(values.get("likes")),
                         values.get("link"),
-                        values.get("date")
+                        YearMonth.parse(values.get("date"), formatter).getYear()
                 );
 
                 // Save to persistent storage

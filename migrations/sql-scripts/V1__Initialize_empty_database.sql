@@ -96,7 +96,7 @@ CREATE TABLE public.talks (
                                   constraint talks_pk_3
                                       unique,
                               influence_factor integer NOT NULL,
-                              date date NOT NULL
+                              year integer NOT NULL
 );
 
 

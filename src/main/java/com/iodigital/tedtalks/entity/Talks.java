@@ -2,9 +2,6 @@ package com.iodigital.tedtalks.entity;
 
 import jakarta.persistence.*;
 
-import java.time.*;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 import java.util.Objects;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
@@ -35,29 +32,25 @@ public class Talks {
     @Column(name = "influence_factor")
     public Integer influenceFactor;
 
-    @Column(name = "date")
-    public LocalDate date;
+    @Column(name = "year")
+    public Integer year;
 
     public Talks() { /* Empty constructor required by Hibernate */ }
 
     public Talks(Author author,
                  String title,
-                 Integer views,
-                 Integer likes,
+                 int views,
+                 int likes,
                  String url,
-                 String dateStr) {
+                 int year) {
         // Assignments / null-checks
         this.author = Objects.requireNonNull(author);
         this.title = Objects.requireNonNull(title);
-        this.views = Objects.requireNonNull(views);
-        this.likes = Objects.requireNonNull(likes);
+        this.views = views;
+        this.likes = likes;
         this.url = Objects.requireNonNull(url);
         this.influenceFactor = views * likes; // Calculate influence
-
-        // Parse / assign date
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM yyyy", Locale.ENGLISH);
-        YearMonth yearMonth = YearMonth.parse(dateStr, formatter);
-        this.date = yearMonth.atDay(1);
+        this.year = year;
 
         // Validations
         if (views < 0) {
@@ -65,6 +58,9 @@ public class Talks {
         }
         if (likes < 0) {
             throw new IllegalArgumentException("Like count must be positive");
+        }
+        if (year < 0) {
+            throw new IllegalArgumentException("Year must be positive");
         }
     }
 }
