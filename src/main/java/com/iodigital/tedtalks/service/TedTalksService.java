@@ -37,4 +37,9 @@ public class TedTalksService {
         return talksRepository.findById(id)
                 .orElseThrow(EntityNotFoundException::new);
     }
+
+    public void removeById(int id) {
+        Talks talk = getById(id);
+        talksRepository.delete(talk);
+    }
 }

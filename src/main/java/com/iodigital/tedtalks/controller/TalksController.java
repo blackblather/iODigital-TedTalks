@@ -7,10 +7,7 @@ import com.iodigital.tedtalks.dto.mapper.TalksMapper;
 import com.iodigital.tedtalks.service.ScraperService;
 import com.iodigital.tedtalks.service.TedTalksService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/talks")
@@ -56,5 +53,11 @@ public class TalksController {
                         talksService.getById(id)
                 )
         );
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<Void> deleteTalk(@RequestParam Integer id) {
+        talksService.removeById(id);
+        return ResponseEntity.ok().build();
     }
 }
