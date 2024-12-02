@@ -21,6 +21,6 @@ public class TalkDto {
     @JsonProperty("influence_factor")
     public Integer influenceFactor;
 
-    @JsonProperty("date")
-    public String date;
+    @JsonProperty("year")
+    public Integer year;
 }

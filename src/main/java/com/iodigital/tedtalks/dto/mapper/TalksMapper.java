@@ -6,11 +6,9 @@ import com.iodigital.tedtalks.dto.TalkDto;
 import com.iodigital.tedtalks.entity.Author;
 import com.iodigital.tedtalks.entity.Talks;
 import com.iodigital.tedtalks.entity.wrapper.TalksListWrapper;
-import org.mapstruct.InjectionStrategy;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingConstants;
+import org.mapstruct.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING,
@@ -26,7 +24,13 @@ public abstract class TalksMapper {
     @Mapping(target = "likes", source = "likes")
     @Mapping(target = "url", source = "url")
     @Mapping(target = "influenceFactor", source = "influenceFactor")
+    @Mapping(target = "year", source = "date", qualifiedByName = { "LocalDateToYear" })
     public abstract TalkDto talkToTalkDto(Talks talk);
+
+    @Named("LocalDateToYear")
+    public Integer localDateToYear(LocalDate localDate) {
+        return localDate.getYear();
+    }
 
     public abstract List<TalkDto> talksToTalkDtos(List<Talks> talks);
 
