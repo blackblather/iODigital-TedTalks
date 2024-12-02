@@ -7,7 +7,6 @@ import java.util.Optional;
 
 public interface AuthorRepository extends CrudRepository<Author, Integer> {
 
-    @Override
-    Optional<Author> findById(Integer integer);
+    Optional<Author> findByName(String name);
 
 }

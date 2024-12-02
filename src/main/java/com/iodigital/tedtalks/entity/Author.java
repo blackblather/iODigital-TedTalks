@@ -2,12 +2,15 @@ package com.iodigital.tedtalks.entity;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "authors")
 public class Author {
     @Id
+    @GeneratedValue(strategy=IDENTITY)
     @Column(name = "id")
     public Integer id;
 
@@ -17,13 +20,7 @@ public class Author {
     public Author() { /* Empty constructor required by Hibernate */ }
 
     public Author(String name) {
-        // Validations
-        if (name == null) {
-            throw new NullPointerException("Author name must not be null");
-        }
-
-        // Assignments
-        this.id = name.hashCode();  // Generate ID from name
-        this.name = name;
+        // Assignments / null-checks
+        this.name = Objects.requireNonNull(name);
     }
 }

@@ -1,5 +1,6 @@
 package com.iodigital.tedtalks.controller;
 
+import com.iodigital.tedtalks.dto.RefreshResponseDTO;
 import com.iodigital.tedtalks.service.ScraperService;
 import com.iodigital.tedtalks.service.TedTalksService;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +20,12 @@ public class TalksController {
     }
 
     @GetMapping("/refresh")
-    public ResponseEntity<String> refreshTalks() {
-        scraperService.refresh();
-        return ResponseEntity.ok().build();
+    public ResponseEntity<RefreshResponseDTO> refreshTalks() {
+        int newTalksFound = scraperService.refresh();
+
+        RefreshResponseDTO resp = new RefreshResponseDTO();
+        resp.newTalksFound = newTalksFound;
+
+        return ResponseEntity.ok(resp);
     }
 }

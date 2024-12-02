@@ -14,12 +14,11 @@ public class TedTalksService {
         this.talksRepository = talksRepository;
     }
 
-    public boolean save(Talks talk, Author author) {
-        try {
+    public boolean createIfNotExists(Talks talk) {
+        if (talksRepository.findByUrl(talk.url).isEmpty()) {
             talksRepository.save(talk);
             return true;
-        } catch (Exception e) {
-            return false;
         }
+        return false;
     }
 }

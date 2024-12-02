@@ -1,8 +1,11 @@
 package com.iodigital.tedtalks.repository;
 
+import com.iodigital.tedtalks.entity.Author;
 import com.iodigital.tedtalks.entity.Talks;
 import org.springframework.data.repository.CrudRepository;
 
-public interface TalksRepository extends CrudRepository<Talks, Integer> {
+import java.util.Optional;
 
+public interface TalksRepository extends CrudRepository<Talks, Integer> {
+    Optional<Talks> findByUrl(String url);
 }

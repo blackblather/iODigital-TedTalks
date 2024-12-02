@@ -13,7 +13,7 @@ public class AuthorService {
     }
 
     public void createIfNotExists(Author author) {
-        if (authorRepository.findById(author.id).isEmpty()) {
+        if (authorRepository.findByName(author.name).isEmpty()) {
             authorRepository.save(author);
         }
     }

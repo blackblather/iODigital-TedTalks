@@ -56,7 +56,7 @@ public class ScraperService {
 
                 // Save to persistent storage
                 authorService.createIfNotExists(author);
-                if (tedTalksService.save(talk, author)) {
+                if (tedTalksService.createIfNotExists(talk)) {
                     newTalksFound++;
                 }
             }
