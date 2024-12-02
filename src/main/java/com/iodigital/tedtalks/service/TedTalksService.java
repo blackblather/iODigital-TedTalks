@@ -1,9 +1,11 @@
 package com.iodigital.tedtalks.service;
 
-import com.iodigital.tedtalks.entity.Author;
 import com.iodigital.tedtalks.entity.Talks;
+import com.iodigital.tedtalks.entity.wrapper.TalksListWrapper;
 import com.iodigital.tedtalks.repository.TalksRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class TedTalksService {
@@ -20,5 +22,12 @@ public class TedTalksService {
             return true;
         }
         return false;
+    }
+
+    public TalksListWrapper getAll() {
+        List<Talks> talks = talksRepository.findAll();
+        long totalTalks = talksRepository.count();
+
+        return new TalksListWrapper(talks, totalTalks);
     }
 }
