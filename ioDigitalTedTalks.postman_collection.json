@@ -1,0 +1,188 @@
+{
+	"info": {
+		"_postman_id": "8aa7ff3d-e6d4-4889-93e3-b2d65bdfaae2",
+		"name": "[Joao] iO Digital - Ted Talks",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12976501"
+	},
+	"item": [
+		{
+			"name": "[Scraper] Refresh",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/talks/refresh",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"talks",
+						"refresh"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Talk] Get all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/talks/getAll",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"talks",
+						"getAll"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Talk] Get by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/talks/get?id=1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"talks",
+						"get"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Talk] Get most influential / year",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/talks/mostInfluentialPerYear",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"talks",
+						"mostInfluentialPerYear"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Talk] Delete by id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/talks/remove?id=123",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"talks",
+						"remove"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "123"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Talk] Update by id",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"author\": {\r\n        \"name\": \"Sydney Iaukea\"\r\n    },\r\n    \"title\": \"Why is China?\",\r\n    \"views\": 400,\r\n    \"likes\": 400,\r\n    \"url\": \"https://ted.qqks/james_k_thornton_why_is_china_appointing_judges_to_combat_climate_change\",\r\n    \"year\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/talks/update?id=41",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"talks",
+						"update"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "41"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Authors] Get most influential",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"author\": {\r\n        \"name\": \"Ozawa UUU WWW\"\r\n    },\r\n    \"title\": \"isto e aquilo\",\r\n    \"views\": 100,\r\n    \"likes\": 200,\r\n    \"url\": \"https://ted.com/talks/ozawa_bineshi_albert_climate_action_needs_new_frontline_leadership\",\r\n    \"year\": 2021\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/authors/mostInfluential?limit=5",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"authors",
+						"mostInfluential"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
