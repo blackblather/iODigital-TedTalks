@@ -65,6 +65,17 @@ public abstract class DtoMapper {
     @Mapping(target = "talks", source = "talks")
     public abstract GetTalksResponseDTO wrapperToGetTalkRespDTO(TalksListWrapper wrapper);
 
+    public TalkListDTO listToTalkListDTO(List<Talks> talks) {
+        // Instantiate
+        TalkListDTO dto = new TalkListDTO();
+
+        // Populate
+        dto.talks = talksToTalkDtos(talks);
+
+        // Return populated
+        return dto;
+    }
+
     /* ******************* */
     /* DTO to Talks mapper */
     /* Used by:            */

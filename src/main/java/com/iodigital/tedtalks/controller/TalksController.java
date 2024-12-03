@@ -11,16 +11,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/talks")
 public class TalksController {
     // Mappers
-    private DtoMapper dtoMapper;
+    private DtoMapper mapper;
 
     // Services
     private ScraperService scraperService;
     private TedTalksService talksService;
 
-    public TalksController(DtoMapper dtoMapper,
+    public TalksController(DtoMapper mapper,
                            ScraperService scraperService,
                            TedTalksService talksService) {
-        this.dtoMapper = dtoMapper;
+        this.mapper = mapper;
         this.scraperService = scraperService;
         this.talksService = talksService;
     }
@@ -38,7 +38,7 @@ public class TalksController {
     @GetMapping("/getAll")
     public ResponseEntity<GetTalksResponseDTO> getAll() {
         return ResponseEntity.ok(
-                dtoMapper.wrapperToGetTalkRespDTO(
+                mapper.wrapperToGetTalkRespDTO(
                         talksService.getAll()
                 )
         );
@@ -47,7 +47,7 @@ public class TalksController {
     @GetMapping("/get")
     public ResponseEntity<TalkDTO> getById(@RequestParam Integer id) {
         return ResponseEntity.ok(
-                dtoMapper.talkToDto(
+                mapper.talkToDto(
                         talksService.getByIdOrThrow(id)
                 )
         );
@@ -64,8 +64,17 @@ public class TalksController {
                                                       @RequestBody TalkDTO talksDto) {
         talksService.updateById(
                 id,
-                dtoMapper.dtoToTalk(talksDto)
+                mapper.dtoToTalk(talksDto)
         );
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/mostInfluentialPerYear")
+    public ResponseEntity<TalkListDTO> getMostInfluential() {
+        return ResponseEntity.ok(
+                mapper.listToTalkListDTO(
+                        talksService.getMostInfluential()
+                )
+        );
     }
 }

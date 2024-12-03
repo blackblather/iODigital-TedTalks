@@ -1,5 +1,6 @@
 package com.iodigital.tedtalks.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class AuthorDTO {
@@ -7,5 +8,6 @@ public class AuthorDTO {
     public String name;
 
     @JsonProperty("influence")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String influence;
 }

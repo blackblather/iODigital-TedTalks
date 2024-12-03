@@ -4,7 +4,6 @@ import com.iodigital.tedtalks.entity.Talks;
 import com.iodigital.tedtalks.entity.wrapper.TalksListWrapper;
 import com.iodigital.tedtalks.repository.TalksRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,9 +11,9 @@ import java.util.List;
 @Service
 public class TedTalksService {
     // Repositories
-    private TalksRepository talksRepository;
+    private final TalksRepository talksRepository;
 
-    TedTalksService(TalksRepository talksRepository, AuthorService authorService) {
+    TedTalksService(TalksRepository talksRepository) {
         this.talksRepository = talksRepository;
     }
 
@@ -59,5 +58,10 @@ public class TedTalksService {
 
         // Update DB record
         talksRepository.save(persistedTalk);
+    }
+
+    public List<Talks> getMostInfluential() {
+        // Fetch
+        return talksRepository.mostInfluentialTalksPerYear();
     }
 }

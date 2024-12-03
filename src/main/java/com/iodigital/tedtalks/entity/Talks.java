@@ -8,6 +8,29 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "talks")
+@SqlResultSetMapping(
+        name="mostInfluentialTalksPerYearMapping",
+        entities={
+                @EntityResult(
+                        entityClass=Talks.class,
+                        fields= {
+                                @FieldResult(name = "id", column = "t_id"),
+                                @FieldResult(name = "title", column = "title"),
+                                @FieldResult(name = "views", column = "views"),
+                                @FieldResult(name = "likes", column = "likes"),
+                                @FieldResult(name = "url", column = "url"),
+                                @FieldResult(name = "influenceFactor", column = "influence_factor"),
+                                @FieldResult(name = "year", column = "year"),
+                        }
+                ),
+                @EntityResult(
+                        entityClass= Author.class,
+                        fields= {
+                                @FieldResult(name = "id", column = "a_id"),
+                                @FieldResult(name = "name", column = "name")
+                        }
+                )
+        })
 public class Talks {
     @Id
     @Column(name = "id")

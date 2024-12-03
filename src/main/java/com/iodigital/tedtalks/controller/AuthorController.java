@@ -32,4 +32,7 @@ public class AuthorController {
                 )
         );
     }
+
+    // For demo purposes there is no other endpoints here, but in the real world
+    // there would be endpoints, for example, to edit an author...
 }

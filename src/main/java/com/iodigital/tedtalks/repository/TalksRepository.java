@@ -23,4 +23,30 @@ public interface TalksRepository extends CrudRepository<Talks, Integer> {
             "join fetch t.author " +
             "where t.id = :id")
     Optional<Talks> findById(@Param("id") Integer id);
+
+    @NativeQuery(
+            value = """
+                    with maxPerYear as (
+                        select max(influence_factor) as max_influence, year
+                        from talks
+                        group by year
+                    )
+                    select a.id as a_id,
+                           a.name,
+                           t.id as t_id,
+                           t.author_id,
+                           t.title,
+                           t.views,
+                           t.likes,
+                           t.url,
+                           t.influence_factor,
+                           t.year
+                    from talks as t
+                    inner join authors a on a.id = t.author_id
+                    inner join maxPerYear m on m.max_influence = t.influence_factor and m.year = t.year
+                    order by t.year desc
+                    """,
+            sqlResultSetMapping = "mostInfluentialTalksPerYearMapping"
+    )
+    List<Talks> mostInfluentialTalksPerYear();
 }
