@@ -23,3 +23,4 @@ For ease of use, a Postman collection is provided: `ioDigitalTedTalks.postman_co
 # Usage
 Initially, after following the deployment steps, the database will be empty.<br/>
 Call the refresh endpoint to "_fetch TedTalks from the web_". It will fetch a few talks at a time, after which all other endpoints can be used to perform analysis and normal CRUD operations.
+Read `DOCUMENTATION.md` for a more detailed overview of all endpoints 
