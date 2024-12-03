@@ -4,6 +4,7 @@ import com.iodigital.tedtalks.entity.Talks;
 import com.iodigital.tedtalks.entity.wrapper.TalksListWrapper;
 import com.iodigital.tedtalks.repository.TalksRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -59,5 +60,15 @@ public class TedTalksService {
 
         // Update DB record
         talksRepository.save(persistedTalk);
+    }
+
+    public List<Talks> getMostInfluential(int limit) {
+        // Validations
+        if (limit <= 0) {
+            throw new IllegalArgumentException("Limit must be positive");
+        }
+
+        // Fetch
+        return talksRepository.getTopByInfluence(PageRequest.of(0, limit));
     }
 }

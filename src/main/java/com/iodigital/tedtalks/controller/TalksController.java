@@ -1,8 +1,6 @@
 package com.iodigital.tedtalks.controller;
 
-import com.iodigital.tedtalks.dto.GetTalksResponseDto;
-import com.iodigital.tedtalks.dto.RefreshResponseDTO;
-import com.iodigital.tedtalks.dto.TalkDto;
+import com.iodigital.tedtalks.dto.*;
 import com.iodigital.tedtalks.dto.mapper.TalksMapper;
 import com.iodigital.tedtalks.service.ScraperService;
 import com.iodigital.tedtalks.service.TedTalksService;
@@ -40,7 +38,7 @@ public class TalksController {
     @GetMapping("/getAll")
     public ResponseEntity<GetTalksResponseDto> getAll() {
         return ResponseEntity.ok(
-                talksMapper.talkListWrapperToGetTalkRespDTO(
+                talksMapper.wrapperToGetTalkRespDTO(
                         talksService.getAll()
                 )
         );
@@ -69,5 +67,14 @@ public class TalksController {
                 talksMapper.dtoToTalk(talksDto)
         );
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/mostInfluential")
+    public ResponseEntity<TalkListDto> getMostInfluential(@RequestParam(required = false, defaultValue = "10") Integer limit) {
+        return ResponseEntity.ok(
+                talksMapper.listToTalkListDto(
+                        talksService.getMostInfluential(limit)
+                )
+        );
     }
 }

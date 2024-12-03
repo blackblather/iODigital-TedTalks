@@ -1,8 +1,6 @@
 package com.iodigital.tedtalks.dto.mapper;
 
-import com.iodigital.tedtalks.dto.AuthorDto;
-import com.iodigital.tedtalks.dto.GetTalksResponseDto;
-import com.iodigital.tedtalks.dto.TalkDto;
+import com.iodigital.tedtalks.dto.*;
 import com.iodigital.tedtalks.entity.Author;
 import com.iodigital.tedtalks.entity.Talks;
 import com.iodigital.tedtalks.entity.wrapper.TalksListWrapper;
@@ -11,6 +9,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING,
@@ -41,7 +40,24 @@ public abstract class TalksMapper {
     /* ***************** */
     @Mapping(target = "total", source = "total")
     @Mapping(target = "talks", source = "talks")
-    public abstract GetTalksResponseDto talkListWrapperToGetTalkRespDTO(TalksListWrapper wrapper);
+    public abstract GetTalksResponseDto wrapperToGetTalkRespDTO(TalksListWrapper wrapper);
+
+    /* ***************** */
+    /* Get most influential Talks DTO */
+    /* ***************** */
+    public TalkListDto listToTalkListDto(List<Talks> talks) {
+        // Init empty dto
+        TalkListDto dto = new TalkListDto();
+        dto.talks = new ArrayList<>();
+
+        // Populate dto (using auto-generated talkToDto(...))
+        for (Talks t : talks) {
+            dto.talks.add(talkToDto(t));
+        }
+
+        // Return populated dto
+        return dto;
+    }
 
     /* ******************* */
     /* DTO to Talks mapper */
