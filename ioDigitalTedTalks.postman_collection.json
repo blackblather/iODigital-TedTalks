@@ -21,7 +21,8 @@
 						"talks",
 						"refresh"
 					]
-				}
+				},
+				"description": "Fetches the latest TedTalks \"from the web\", processes and stores them in the DB."
 			},
 			"response": []
 		},
@@ -40,7 +41,8 @@
 						"talks",
 						"getAll"
 					]
-				}
+				},
+				"description": "Gets all TedTalks. Not limit is applied"
 			},
 			"response": []
 		},
@@ -120,7 +122,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"author\": {\r\n        \"name\": \"Sydney Iaukea\"\r\n    },\r\n    \"title\": \"Why is China?\",\r\n    \"views\": 400,\r\n    \"likes\": 400,\r\n    \"url\": \"https://ted.qqks/james_k_thornton_why_is_china_appointing_judges_to_combat_climate_change\",\r\n    \"year\": 2\r\n}",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"title\": \"Climate action needs new frontline leadership\",\r\n    \"views\": 3333333,\r\n    \"likes\": 2,\r\n    \"url\": \"https://ted.com/talks/ozawa_bineshi_albert_climate_action_needs_new_frontline_leadership\",\r\n    \"year\": 2021\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -128,7 +130,7 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/talks/update?id=41",
+					"raw": "localhost:8080/talks/update?id=1",
 					"host": [
 						"localhost"
 					],
@@ -140,7 +142,7 @@
 					"query": [
 						{
 							"key": "id",
-							"value": "41"
+							"value": "1"
 						}
 					]
 				}
