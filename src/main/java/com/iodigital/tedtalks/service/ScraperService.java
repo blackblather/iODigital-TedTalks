@@ -52,7 +52,7 @@ public class ScraperService {
                 );
 
                 // Map CSV row to Talk
-                Talk talk = new Talk(
+                Talk talk = Talk.withAuthor(
                         author,
                         values.get("title"),
                         Integer.parseInt(values.get("views")),

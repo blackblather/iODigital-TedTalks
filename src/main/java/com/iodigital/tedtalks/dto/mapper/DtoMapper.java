@@ -82,12 +82,8 @@ public abstract class DtoMapper {
     /* Used by:            */
     /* - Update Talk       */
     /* ******************* */
-    @Mapping(target = "name", source = "name")
-    public abstract Author authorToAuthorDto(AuthorDTO author);
-
     public Talk dtoToTalk(TalkDTO dto) {
-        return new Talk(
-                authorToAuthorDto(dto.author),
+        return Talk.withoutAuthor(
                 dto.title,
                 dto.views,
                 dto.likes,

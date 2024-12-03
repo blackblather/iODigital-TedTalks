@@ -60,14 +60,14 @@ public class Talk {
 
     public Talk() { /* Empty constructor required by Hibernate */ }
 
-    public Talk(Author author,
+    private Talk(Author author,
                 String title,
                 int views,
                 int likes,
                 String url,
                 int year) {
         // Assignments / null-checks
-        this.author = Objects.requireNonNull(author);
+        this.author = author;
         this.title = Objects.requireNonNull(title);
         this.views = views;
         this.likes = likes;
@@ -85,6 +85,18 @@ public class Talk {
         if (year < 0) {
             throw new IllegalArgumentException("Year must be positive");
         }
+        if (likes > views) {
+            throw new IllegalArgumentException("Cannot have more likes than views");
+        }
+    }
+
+    // Static factory methods for improved readability
+    public static Talk withoutAuthor(String title, int views, int likes, String url, int year) {
+        return new Talk(null, title, views, likes, url, year);
+    }
+
+    public static Talk withAuthor(Author author, String title, int views, int likes, String url, int year) {
+        return new Talk(Objects.requireNonNull(author), title, views, likes, url, year);
     }
 
     public void calculateInfluenceFactor() {
