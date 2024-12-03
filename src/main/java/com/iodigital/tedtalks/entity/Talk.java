@@ -12,7 +12,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
         name="mostInfluentialTalksPerYearMapping",
         entities={
                 @EntityResult(
-                        entityClass=Talks.class,
+                        entityClass= Talk.class,
                         fields= {
                                 @FieldResult(name = "id", column = "t_id"),
                                 @FieldResult(name = "title", column = "title"),
@@ -31,7 +31,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
                         }
                 )
         })
-public class Talks {
+public class Talk {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy=IDENTITY)
@@ -58,14 +58,14 @@ public class Talks {
     @Column(name = "year")
     public Integer year;
 
-    public Talks() { /* Empty constructor required by Hibernate */ }
+    public Talk() { /* Empty constructor required by Hibernate */ }
 
-    public Talks(Author author,
-                 String title,
-                 int views,
-                 int likes,
-                 String url,
-                 int year) {
+    public Talk(Author author,
+                String title,
+                int views,
+                int likes,
+                String url,
+                int year) {
         // Assignments / null-checks
         this.author = Objects.requireNonNull(author);
         this.title = Objects.requireNonNull(title);

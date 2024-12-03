@@ -1,7 +1,6 @@
 package com.iodigital.tedtalks.repository;
 
-import com.iodigital.tedtalks.entity.Talks;
-import org.springframework.data.domain.Pageable;
+import com.iodigital.tedtalks.entity.Talk;
 import org.springframework.data.jpa.repository.NativeQuery;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -10,19 +9,19 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Optional;
 
-public interface TalksRepository extends CrudRepository<Talks, Integer> {
-    Optional<Talks> findByUrl(String url);
+public interface TalksRepository extends CrudRepository<Talk, Integer> {
+    Optional<Talk> findByUrl(String url);
 
     @Override
-    @Query("select t from Talks t " +
+    @Query("select t from Talk t " +
             "join fetch t.author")
-    List<Talks> findAll();
+    List<Talk> findAll();
 
     @Override
-    @Query("select t from Talks t " +
+    @Query("select t from Talk t " +
             "join fetch t.author " +
             "where t.id = :id")
-    Optional<Talks> findById(@Param("id") Integer id);
+    Optional<Talk> findById(@Param("id") Integer id);
 
     @NativeQuery(
             value = """
@@ -48,5 +47,5 @@ public interface TalksRepository extends CrudRepository<Talks, Integer> {
                     """,
             sqlResultSetMapping = "mostInfluentialTalksPerYearMapping"
     )
-    List<Talks> mostInfluentialTalksPerYear();
+    List<Talk> mostInfluentialTalksPerYear();
 }

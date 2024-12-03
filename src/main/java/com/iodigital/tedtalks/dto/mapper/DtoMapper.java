@@ -2,7 +2,7 @@ package com.iodigital.tedtalks.dto.mapper;
 
 import com.iodigital.tedtalks.dto.*;
 import com.iodigital.tedtalks.entity.Author;
-import com.iodigital.tedtalks.entity.Talks;
+import com.iodigital.tedtalks.entity.Talk;
 import com.iodigital.tedtalks.entity.wrapper.TalksListWrapper;
 import org.mapstruct.*;
 
@@ -28,13 +28,14 @@ public abstract class DtoMapper {
     public abstract AuthorDTO authorToInfluenceAuthorDto(Author author);
 
     @Mapping(target = "author", source = "author", qualifiedByName = "simpleAuthorMap")
+    @Mapping(target = "id", source = "id")
     @Mapping(target = "title", source = "title")
     @Mapping(target = "views", source = "views")
     @Mapping(target = "likes", source = "likes")
     @Mapping(target = "url", source = "url")
     @Mapping(target = "influenceFactor", source = "influenceFactor")
     @Mapping(target = "year", source = "year")
-    public abstract TalkDTO talkToDto(Talks talk);
+    public abstract TalkDTO talkToDto(Talk talk);
 
     /* ********************************* */
     /* Most influential authors response */
@@ -59,13 +60,13 @@ public abstract class DtoMapper {
     /* ***************** */
     /* Get ALL Talks DTO */
     /* ***************** */
-    public abstract List<TalkDTO> talksToTalkDtos(List<Talks> talks);
+    public abstract List<TalkDTO> talksToTalkDtos(List<Talk> talks);
 
     @Mapping(target = "total", source = "total")
     @Mapping(target = "talks", source = "talks")
     public abstract GetTalksResponseDTO wrapperToGetTalkRespDTO(TalksListWrapper wrapper);
 
-    public TalkListDTO listToTalkListDTO(List<Talks> talks) {
+    public TalkListDTO listToTalkListDTO(List<Talk> talks) {
         // Instantiate
         TalkListDTO dto = new TalkListDTO();
 
@@ -84,8 +85,8 @@ public abstract class DtoMapper {
     @Mapping(target = "name", source = "name")
     public abstract Author authorToAuthorDto(AuthorDTO author);
 
-    public Talks dtoToTalk(TalkDTO dto) {
-        return new Talks(
+    public Talk dtoToTalk(TalkDTO dto) {
+        return new Talk(
                 authorToAuthorDto(dto.author),
                 dto.title,
                 dto.views,

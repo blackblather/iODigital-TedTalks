@@ -1,6 +1,6 @@
 package com.iodigital.tedtalks.service;
 
-import com.iodigital.tedtalks.entity.Talks;
+import com.iodigital.tedtalks.entity.Talk;
 import com.iodigital.tedtalks.entity.wrapper.TalksListWrapper;
 import com.iodigital.tedtalks.repository.TalksRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -17,7 +17,7 @@ public class TedTalksService {
         this.talksRepository = talksRepository;
     }
 
-    public boolean createIfNotExists(Talks talk) {
+    public boolean createIfNotExists(Talk talk) {
         if (talksRepository.findByUrl(talk.url).isEmpty()) {
             talksRepository.save(talk);
             return true;
@@ -26,25 +26,25 @@ public class TedTalksService {
     }
 
     public TalksListWrapper getAll() {
-        List<Talks> talks = talksRepository.findAll();
+        List<Talk> talks = talksRepository.findAll();
         long totalTalks = talksRepository.count();
 
         return new TalksListWrapper(talks, totalTalks);
     }
 
-    public Talks getByIdOrThrow(int id) {
+    public Talk getByIdOrThrow(int id) {
         return talksRepository.findById(id)
                 .orElseThrow(EntityNotFoundException::new);
     }
 
     public void removeById(int id) {
-        Talks talk = getByIdOrThrow(id);
+        Talk talk = getByIdOrThrow(id);
         talksRepository.delete(talk);
     }
 
-    public void updateById(Integer id, Talks updatedTalk) {
+    public void updateById(Integer id, Talk updatedTalk) {
         // Get requested talk if it exists (404 otherwise)
-        Talks persistedTalk = getByIdOrThrow(id);
+        Talk persistedTalk = getByIdOrThrow(id);
 
         // Update fetched talk
         persistedTalk.title = updatedTalk.title;
@@ -60,7 +60,7 @@ public class TedTalksService {
         talksRepository.save(persistedTalk);
     }
 
-    public List<Talks> getMostInfluential() {
+    public List<Talk> getMostInfluential() {
         // Fetch
         return talksRepository.mostInfluentialTalksPerYear();
     }

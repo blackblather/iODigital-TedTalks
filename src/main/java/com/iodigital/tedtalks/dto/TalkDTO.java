@@ -3,6 +3,9 @@ package com.iodigital.tedtalks.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class TalkDTO {
+    @JsonProperty("id")
+    public Integer id;
+
     @JsonProperty("author")
     public AuthorDTO author;
 

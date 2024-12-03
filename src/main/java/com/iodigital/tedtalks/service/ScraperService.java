@@ -1,7 +1,7 @@
 package com.iodigital.tedtalks.service;
 
 import com.iodigital.tedtalks.entity.Author;
-import com.iodigital.tedtalks.entity.Talks;
+import com.iodigital.tedtalks.entity.Talk;
 import com.opencsv.CSVReaderHeaderAware;
 import com.opencsv.exceptions.CsvValidationException;
 import org.springframework.stereotype.Service;
@@ -52,7 +52,7 @@ public class ScraperService {
                 );
 
                 // Map CSV row to Talk
-                Talks talk = new Talks(
+                Talk talk = new Talk(
                         author,
                         values.get("title"),
                         Integer.parseInt(values.get("views")),
