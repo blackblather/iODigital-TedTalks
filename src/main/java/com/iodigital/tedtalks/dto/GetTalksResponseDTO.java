@@ -4,7 +4,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-public class TalkListDto {
+public class GetTalksResponseDTO {
+    @JsonProperty("total")
+    public Long total;
+
     @JsonProperty("talks")
-    public List<TalkDto> talks;
+    public List<TalkDTO> talks;
 }

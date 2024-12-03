@@ -1,7 +1,7 @@
 package com.iodigital.tedtalks.controller;
 
 import com.iodigital.tedtalks.dto.*;
-import com.iodigital.tedtalks.dto.mapper.TalksMapper;
+import com.iodigital.tedtalks.dto.mapper.DtoMapper;
 import com.iodigital.tedtalks.service.ScraperService;
 import com.iodigital.tedtalks.service.TedTalksService;
 import org.springframework.http.ResponseEntity;
@@ -11,16 +11,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/talks")
 public class TalksController {
     // Mappers
-    private TalksMapper talksMapper;
+    private DtoMapper dtoMapper;
 
-    // Service
+    // Services
     private ScraperService scraperService;
     private TedTalksService talksService;
 
-    public TalksController(TalksMapper talksMapper,
+    public TalksController(DtoMapper dtoMapper,
                            ScraperService scraperService,
                            TedTalksService talksService) {
-        this.talksMapper = talksMapper;
+        this.dtoMapper = dtoMapper;
         this.scraperService = scraperService;
         this.talksService = talksService;
     }
@@ -36,18 +36,18 @@ public class TalksController {
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<GetTalksResponseDto> getAll() {
+    public ResponseEntity<GetTalksResponseDTO> getAll() {
         return ResponseEntity.ok(
-                talksMapper.wrapperToGetTalkRespDTO(
+                dtoMapper.wrapperToGetTalkRespDTO(
                         talksService.getAll()
                 )
         );
     }
 
     @GetMapping("/get")
-    public ResponseEntity<TalkDto> getById(@RequestParam Integer id) {
+    public ResponseEntity<TalkDTO> getById(@RequestParam Integer id) {
         return ResponseEntity.ok(
-                talksMapper.talkToDto(
+                dtoMapper.talkToDto(
                         talksService.getByIdOrThrow(id)
                 )
         );
@@ -61,20 +61,11 @@ public class TalksController {
 
     @PutMapping("/update")
     public ResponseEntity<Void> updateTalkDetailsById(@RequestParam Integer id,
-                                                      @RequestBody TalkDto talksDto) {
+                                                      @RequestBody TalkDTO talksDto) {
         talksService.updateById(
                 id,
-                talksMapper.dtoToTalk(talksDto)
+                dtoMapper.dtoToTalk(talksDto)
         );
         return ResponseEntity.ok().build();
-    }
-
-    @GetMapping("/mostInfluential")
-    public ResponseEntity<TalkListDto> getMostInfluential(@RequestParam(required = false, defaultValue = "10") Integer limit) {
-        return ResponseEntity.ok(
-                talksMapper.listToTalkListDto(
-                        talksService.getMostInfluential(limit)
-                )
-        );
     }
 }

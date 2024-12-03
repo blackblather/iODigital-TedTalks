@@ -55,8 +55,8 @@ public class ScraperService {
                 Talks talk = new Talks(
                         author,
                         values.get("title"),
-                        Integer.valueOf(values.get("views")),
-                        Integer.valueOf(values.get("likes")),
+                        Integer.parseInt(values.get("views")),
+                        Integer.parseInt(values.get("likes")),
                         values.get("link"),
                         YearMonth.parse(values.get("date"), formatter).getYear()
                 );

@@ -2,6 +2,7 @@ package com.iodigital.tedtalks.repository;
 
 import com.iodigital.tedtalks.entity.Talks;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.NativeQuery;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -22,9 +23,4 @@ public interface TalksRepository extends CrudRepository<Talks, Integer> {
             "join fetch t.author " +
             "where t.id = :id")
     Optional<Talks> findById(@Param("id") Integer id);
-
-    @Query("select t from Talks t " +
-            "join fetch t.author " +
-            "order by t.influenceFactor desc")
-    List<Talks> getTopByInfluence(Pageable page);
 }

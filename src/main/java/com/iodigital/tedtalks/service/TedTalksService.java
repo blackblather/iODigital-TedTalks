@@ -47,8 +47,7 @@ public class TedTalksService {
         // Get requested talk if it exists (404 otherwise)
         Talks persistedTalk = getByIdOrThrow(id);
 
-        // Update fetched talk (for demo purposes, the author is also updated. In the real world it probably would make more sense to have a separate endpoint to update the author)
-        persistedTalk.author.name = updatedTalk.author.name;
+        // Update fetched talk
         persistedTalk.title = updatedTalk.title;
         persistedTalk.views = updatedTalk.views;
         persistedTalk.likes = updatedTalk.likes;
@@ -60,15 +59,5 @@ public class TedTalksService {
 
         // Update DB record
         talksRepository.save(persistedTalk);
-    }
-
-    public List<Talks> getMostInfluential(int limit) {
-        // Validations
-        if (limit <= 0) {
-            throw new IllegalArgumentException("Limit must be positive");
-        }
-
-        // Fetch
-        return talksRepository.getTopByInfluence(PageRequest.of(0, limit));
     }
 }
